@@ -20,6 +20,7 @@ async function run() {
 
     console.log(`Preparing to sign key @ ${releaseDir} with signing key`);
 
+
     // 1. Find release files
     const releaseFiles = io.findReleaseFiles(releaseDir);
     if (releaseFiles !== undefined && releaseFiles.length !== 0) {
@@ -61,6 +62,9 @@ async function run() {
         core.exportVariable(`SIGNED_RELEASE_FILE`, signedReleaseFiles[0]);
         core.setOutput('signedReleaseFile', signedReleaseFiles[0]);
       }
+      console.log('Removing signing key...');
+      fs.unlinkSync(signingKey);
+      console.log('Signing key removed!');
       console.log('Releases signed!');
     } else {
       core.error("No release files (.apk or .aab) could be found. Abort.");

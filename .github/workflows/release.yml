@@ -3,7 +3,7 @@ name: "Tag & Deploy Action"
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   test:
@@ -31,6 +31,7 @@ jobs:
           alias: test_key
           keyStorePassword: android
           keyPassword: android
+          customArgs: --v1-signing-enabled,true,--v2-signing-enabled,false,--v3-signing-enabled,false
 
       - uses: ./
         name: Sign AAB
@@ -41,17 +42,17 @@ jobs:
           keyStorePassword: android
           keyPassword: android
 
-  release:
-    needs: test
-    runs-on: ubuntu-latest
-    name: Update action
-
-    steps:
-      - uses: actions/checkout@v1
-        name: Checkout code
-
-      - name: Update v1 Tag
-        uses: hole19/git-tag-action@master
-        env:
-          TAG: v1
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  release:
+#    needs: test
+#    runs-on: ubuntu-latest
+#    name: Update action
+#
+#    steps:
+#      - uses: actions/checkout@v1
+#        name: Checkout code
+#
+#      - name: Update v1 Tag
+#        uses: hole19/git-tag-action@master
+#        env:
+#          TAG: v1
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

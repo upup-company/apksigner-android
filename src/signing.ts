@@ -61,16 +61,9 @@ export async function signApkFile(
 
     if (customArgs) {
         const splitArgs = customArgs.split(',')
-        for (let i = 0; i++; i < splitArgs.length) {
-            if (i % 2 == 1) continue;
-
-            const keyOrSingleArg = splitArgs[i];
-            args.push(keyOrSingleArg);
-            const value = splitArgs[i + 1];
-            if (value.length > 0) {
-                args.push(value);
-            }
-        }
+        splitArgs.forEach(function (p1: string, p2: number, p3: string[]) {
+            args.push(p1);
+        });
     }
 
     args.push(alignedApkFile);
@@ -109,16 +102,9 @@ export async function signAabFile(
 
     if (customArgs) {
         const splitArgs = customArgs.split(',')
-        for (let i = 0; i++; i < splitArgs.length) {
-            if (i % 2 == 1) continue;
-
-            const keyOrSingleArg = splitArgs[i];
-            args.push(keyOrSingleArg);
-            const value = splitArgs[i + 1];
-            if (value.length > 0) {
-                args.push(value);
-            }
-        }
+        splitArgs.forEach(function (p1: string, p2: number, p3: string[]) {
+            args.push(p1);
+        });
     }
 
     args.push(aabFile, alias);

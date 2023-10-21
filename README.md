@@ -31,6 +31,10 @@ Then copy the contents of the `.txt` file to your GH secrets
 
 **Optional:** The private key password for your signing keystore
 
+### `customArgs`
+
+**Optional:** Comma-separated arguments to pass to apksigner 
+
 ## ENV: `BUILD_TOOLS_VERSION`
 
 **Optional:** You can manually specify a version of build-tools to use. We use `29.0.3` by default.
@@ -55,9 +59,11 @@ separated by `:`.
 
 The output variable `signedReleaseFile` can be used in a release action.
 
+`customArgs` shows how to pass arguments keys & values 
+
 ```yaml
 steps:
-  - uses: r0adkll/sign-android-release@v1
+  - uses: upup-company/apksigner-android@v1
     name: Sign app APK
     # ID used to access action output
     id: sign_app
@@ -67,6 +73,7 @@ steps:
       alias: ${{ secrets.ALIAS }}
       keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
       keyPassword: ${{ secrets.KEY_PASSWORD }}
+      customArgs: --v1-signing-enabled,true,--v2-signing-enabled,true
     env:
       # override default build-tools version (29.0.3) -- optional
       BUILD_TOOLS_VERSION: "30.0.2"
@@ -85,7 +92,7 @@ can be used to refer to each signed release file.
 
 ```yaml
 steps:
-  - uses: r0adkll/sign-android-release@v1
+  - uses:upup-company/apksigner-android@v1
     id: sign_app
     with:
       releaseDirectory: app/build/outputs/apk/release
@@ -116,7 +123,7 @@ before being used in a release action.
 
 ```yaml
 steps:
-  - uses: r0adkll/sign-android-release@v1
+  - uses: upup-company/apksigner-android@v1
     id: sign_app
     with:
       releaseDirectory: app/build/outputs/apk/release
